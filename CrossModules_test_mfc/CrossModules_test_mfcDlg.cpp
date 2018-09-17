@@ -49,6 +49,7 @@ BOOL CCrossModules_test_mfcDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
 	// TODO: 在此添加额外的初始化代码
+	_CrtSetDbgFlag(_CrtSetDbgFlag(_CRTDBG_REPORT_FLAG) | _CRTDBG_LEAK_CHECK_DF);
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
@@ -104,22 +105,72 @@ void CCrossModules_test_mfcDlg::OnBnClickedButton1()
 
 	GL::multimap<int, GL::string> mmp;
 	fnCrossModules_test_multimap(mmp);
+
+	GL::deque<int> dq;
+	fnCrossModules_test_deque(dq);
+
+	GL::list<int> lst;
+	fnCrossModules_test_list(lst);
+
+	GL::forward_list<int> flst;
+	fnCrossModules_test_forwardlist(flst);
+
+	GL::multiset<int> mst;
+	fnCrossModules_test_multiset(mst);
+
+	GL::unordered_set<int> unst;
+	fnCrossModules_test_unordered_set(unst);
+
+	GL::unordered_multiset<int> umst;
+	fnCrossModules_test_unordered_multiset(umst);
+
+	GL::unordered_map<int, int> ump;
+	fnCrossModules_test_unordered_map(ump);
+
+	GL::unordered_multimap<int, int> ummp;
+	fnCrossModules_test_unordered_multimap(ummp);
 }
 
 
 void CCrossModules_test_mfcDlg::OnBnClickedButton2()
 {
+#if 0
 	std::vector<int> vct;
 	fnCrossModules_test_stdvector(vct);
-
+#elif 0
 	std::string s = fnCrossModules_test_stdstring();
-
+#elif 0
 	std::set<std::wstring> st;
 	fnCrossModules_test_stdset(st);
-
+#elif 0
 	std::map<int, std::string> mp;
 	fnCrossModules_test_stdmap(mp);
-
+#elif 0
 	std::multimap<int, std::string> mmp;
 	fnCrossModules_test_stdmultimap(mmp);
+#elif 0
+	std::deque<int> dq;
+	fnCrossModules_test_stddeque(dq);
+#elif 0
+	std::list<int> lst;
+	fnCrossModules_test_stdlist(lst);
+#elif 0
+	std::forward_list<int> flst;
+	fnCrossModules_test_stdforwardlist(flst);
+#elif 0
+	std::multiset<int> mst;
+	fnCrossModules_test_stdmultiset(mst);
+#elif 0
+	std::unordered_set<int> unst;
+	fnCrossModules_test_stdunordered_set(unst);
+#elif 0
+	std::unordered_multiset<int> umst;
+	fnCrossModules_test_stdunordered_multiset(umst);
+#elif 0
+	std::unordered_map<int, int> ump;
+	fnCrossModules_test_stdunordered_map(ump);
+#elif 1
+	std::unordered_multimap<int, int> ummp;
+	fnCrossModules_test_stdunordered_multimap(ummp);
+#endif
 }
