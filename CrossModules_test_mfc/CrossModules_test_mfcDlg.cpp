@@ -129,6 +129,18 @@ void CCrossModules_test_mfcDlg::OnBnClickedButton1()
 
 	GL::unordered_multimap<int, int> ummp;
 	fnCrossModules_test_unordered_multimap(ummp);
+
+	GL::stringbuf sb;
+	fnCrossModules_test_stringbuf(sb);
+
+	GL::istringstream iss;
+	fnCrossModules_test_istringstream(iss);
+
+	GL::ostringstream os;
+	fnCrossModules_test_ostringstream(os);
+
+	GL::stringstream ss;
+	fnCrossModules_test_stringstream(ss);
 }
 
 
@@ -169,8 +181,20 @@ void CCrossModules_test_mfcDlg::OnBnClickedButton2()
 #elif 0
 	std::unordered_map<int, int> ump;
 	fnCrossModules_test_stdunordered_map(ump);
-#elif 1
+#elif 0
 	std::unordered_multimap<int, int> ummp;
 	fnCrossModules_test_stdunordered_multimap(ummp);
+#elif 0
+	std::stringbuf sb;
+	fnCrossModules_test_stdostringstream(sb);
+#elif 0
+	std::istringstream ss;
+	fnCrossModules_test_stdistringstream(ss);
+#elif 0
+	std::ostringstream os;
+	fnCrossModules_test_stdostringstream(os);
+#elif 0
+	std::stringstream ss;
+	fnCrossModules_test_stdstringstream(ss);
 #endif
 }

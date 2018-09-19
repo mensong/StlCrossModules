@@ -1,4 +1,5 @@
 #pragma once
+#include "StlHeapAlloc.h"
 #include <vector>
 #include <deque>
 #include <list>
@@ -7,7 +8,7 @@
 #include <map>
 #include <unordered_set>
 #include <unordered_map>
-#include "StlHeapAlloc.h"
+#include <sstream>
 
 namespace GL
 {
@@ -117,6 +118,160 @@ namespace GL
 	};
 	typedef basic_string<char> string;
 	typedef basic_string<wchar_t> wstring;
+
+	/************************************************************************/
+	/* basic_stringbuf                                                      */
+	/************************************************************************/
+	template<class _Elem,
+		class _Traits = std::char_traits<_Elem>,
+		class _Alloc = STLHeapAlloc<_Elem> >
+	class basic_stringbuf
+		: public std::basic_stringbuf<_Elem, _Traits, _Alloc>
+	{
+	public:
+		typedef std::basic_stringbuf<_Elem, _Traits, _Alloc> _BaseClass;
+
+	public:
+		explicit basic_stringbuf(std::ios_base::openmode _Mode = std::ios_base::in | std::ios_base::out)
+			: _BaseClass(_Mode)
+		{
+		}
+
+		explicit basic_stringbuf(const _Mystr& _Str,
+			std::ios_base::openmode _Mode = std::ios_base::in | std::ios_base::out)
+			: _BaseClass(_Str, _Mode)
+		{			
+		}
+
+		basic_stringbuf(_Myt&& _Right)
+			: _BaseClass(_Right)
+		{			
+		}
+
+		virtual ~basic_stringbuf() _NOEXCEPT
+		{	// destroy the object
+			
+		}
+
+	};
+	typedef basic_stringbuf<char> stringbuf;
+	typedef basic_stringbuf<wchar_t> wstringbuf;
+
+	/************************************************************************/
+	/* basic_istringstream                                                  */
+	/************************************************************************/
+	template<class _Elem,
+		class _Traits = std::char_traits<_Elem>,
+		class _Alloc = STLHeapAlloc<_Elem> >
+	class basic_istringstream
+		: public std::basic_istringstream<_Elem, _Traits, _Alloc>
+	{
+	public:
+		typedef std::basic_istringstream<_Elem, _Traits, _Alloc> _BaseClass;
+
+	public:
+		explicit basic_istringstream(std::ios_base::openmode _Mode = std::ios_base::in)
+			: _BaseClass(_Mode)
+		{
+		}
+
+		explicit basic_istringstream(const _Mystr& _Str,
+			std::ios_base::openmode _Mode = std::ios_base::in)
+			: _BaseClass(_Str, _Mode)
+		{
+		}
+
+		basic_istringstream(_Myt&& _Right)
+			: _BaseClass(_Right)
+		{
+		}
+
+		basic_istringstream(const _Myt&) = delete;
+
+		virtual ~basic_istringstream() _NOEXCEPT
+		{	// destroy the object
+		}
+	};
+	typedef basic_istringstream<char> istringstream;
+	typedef basic_istringstream<wchar_t> wistringstream;
+
+	/************************************************************************/
+	/* basic_ostringstream                                                  */
+	/************************************************************************/
+	template<class _Elem,
+		class _Traits = std::char_traits<_Elem>,
+		class _Alloc = STLHeapAlloc<_Elem> >
+	class basic_ostringstream
+		: public std::basic_ostringstream<_Elem, _Traits, _Alloc>
+	{
+	public:
+		typedef std::basic_ostringstream<_Elem, _Traits, _Alloc> _BaseClass;
+
+	public:
+		explicit basic_ostringstream(std::ios_base::openmode _Mode = std::ios_base::out)
+			: _BaseClass(_Mode)
+		{
+		}
+
+		explicit basic_ostringstream(const _Mystr& _Str,
+			ios_base::openmode _Mode = ios_base::out)
+			: _BaseClass(_Str, _Mode)
+		{
+		}
+
+		basic_ostringstream(_Myt&& _Right)
+			: _BaseClass(_Right)
+		{
+		}
+		
+		basic_ostringstream(const _Myt&) = delete;
+
+		virtual ~basic_ostringstream() _NOEXCEPT
+		{	// destroy the object
+		}
+	};
+	typedef basic_ostringstream<char> ostringstream;
+	typedef basic_ostringstream<wchar_t> wostringstream;
+
+	/************************************************************************/
+	/* basic_stringstream                                                   */
+	/************************************************************************/
+	template<class _Elem,
+		class _Traits = std::char_traits<_Elem>,
+		class _Alloc = STLHeapAlloc<_Elem> >
+	class basic_stringstream
+		: public std::basic_stringstream<_Elem, _Traits, _Alloc>
+	{
+	public:
+		typedef std::basic_stringstream<_Elem, _Traits, _Alloc> _BaseClass;
+
+	public:
+		explicit basic_stringstream(std::ios_base::openmode _Mode =
+			std::ios_base::in | std::ios_base::out)
+			: _BaseClass(_Mode)
+		{
+		}
+
+		explicit basic_stringstream(const _Mystr& _Str,
+			std::ios_base::openmode _Mode = std::ios_base::in | std::ios_base::out)
+			: _BaseClass(_Str, _Mode)
+		{
+		}
+
+		basic_stringstream(_Myt&& _Right)
+			: _BaseClass(_Right)
+		{
+		}
+
+		basic_stringstream(const _Myt&) = delete;
+
+		virtual ~basic_stringstream() _NOEXCEPT
+		{	// destroy the object
+		}
+
+	};
+	typedef basic_stringstream<char> stringstream;
+	typedef basic_stringstream<wchar_t> wstringstream;
 
 	/************************************************************************/
 	/* vector                                                               */

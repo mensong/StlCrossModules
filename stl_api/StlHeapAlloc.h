@@ -2,6 +2,7 @@
 #define _STL_HEAP_ALLOC_H_
 #include <memory>
 #include <assert.h>
+#include <Windows.h>
 
 template <typename T>
 class STLHeapAlloc:

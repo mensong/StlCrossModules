@@ -232,3 +232,43 @@ CROSSMODULES_TEST_DLL_API void fnCrossModules_test_stdunordered_multimap(std::un
 	ummp.insert(std::make_pair(2, 1));
 	ummp.insert(std::make_pair(2, 2));
 }
+
+CROSSMODULES_TEST_DLL_API void fnCrossModules_test_stringbuf(GL::stringbuf& sb)
+{
+	sb.str("gergul");
+}
+
+CROSSMODULES_TEST_DLL_API void fnCrossModules_test_stdstringbuf(std::stringbuf& sb)
+{
+	sb.str("gergul");
+}
+
+CROSSMODULES_TEST_DLL_API void fnCrossModules_test_ostringstream(GL::ostringstream& os)
+{
+	os.str("Gergul");
+}
+
+CROSSMODULES_TEST_DLL_API void fnCrossModules_test_stdostringstream(std::ostringstream& os)
+{
+	os.str("Gergul");
+}
+
+CROSSMODULES_TEST_DLL_API void fnCrossModules_test_stringstream(GL::stringstream& ss)
+{
+	ss.str("Gergul");
+}
+
+CROSSMODULES_TEST_DLL_API void fnCrossModules_test_stdstringstream(std::stringstream& ss)
+{
+	ss.str("Gergul");
+}
+
+CROSSMODULES_TEST_DLL_API void fnCrossModules_test_istringstream(GL::istringstream& iss)
+{
+	iss.str("Gergul");
+}
+
+CROSSMODULES_TEST_DLL_API void fnCrossModules_test_stdistringstream(std::istringstream& iss)
+{
+	iss.str("Gergul");
+}
