@@ -1,7 +1,9 @@
 # StlCrossModules
 使用c++标准库作为传递参数时在跨模块时可能崩溃，经改进后可以正常使用。
 
-请使用：
+
+# 使用：
+需要c++14的支持
 
 std::string   => GL::string
 
