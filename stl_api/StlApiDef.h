@@ -1,5 +1,6 @@
 #pragma once
 #include "StlHeapAlloc.h"
+#include <string>
 #include <vector>
 #include <deque>
 #include <list>
@@ -15,263 +16,32 @@ namespace GL
 	/************************************************************************/
 	/* string wstring                                                       */
 	/************************************************************************/
-	template<class _Elem, 
-		class _Traits = std::char_traits<_Elem>, 
-		class _Alloc = STLHeapAlloc<_Elem> >
-	class basic_string
-		: public std::basic_string<_Elem, _Traits, _Alloc>
-	{
-	public:
-		typedef std::basic_string<_Elem, _Traits, _Alloc> _BaseClass;
-
-	public:
-		basic_string(const _Myt& _Right)
-			: _BaseClass(_Right)
-		{
-		}
-		~basic_string()
-		{
-			//_BaseClass::~basic_string();
-			_Tidy(true);
-		}
-
-		basic_string(const _Myt& _Right, const allocator_type& _Al)
-			: _BaseClass(_Right, _Al)
-		{
-		}
-
-		basic_string() _NOEXCEPT
-			: _BaseClass()
-		{
-		}
-
-		explicit basic_string(const allocator_type& _Al) _NOEXCEPT
-			: _BaseClass(_Al)
-		{
-		}
-
-		basic_string(const _Myt& _Right, size_type _Roff,
-			size_type _Count = npos)
-			: _BaseClass(_Right, _Roff, _Count)
-		{
-		}
-
-		basic_string(const _Myt& _Right, size_type _Roff, size_type _Count,
-			const allocator_type& _Al)
-			: _BaseClass(_Right, _Roff, _Count, _Al)
-		{
-		}
-
-		basic_string(const _Elem *_Ptr, size_type _Count)
-			: _BaseClass(_Ptr, _Count)
-		{
-		}
-
-		basic_string(const _Elem *_Ptr, size_type _Count, const allocator_type& _Al)
-			: _BaseClass(_Ptr, _Count, _Al)
-		{
-		}
-
-		basic_string(const _Elem *_Ptr)
-			: _BaseClass(_Ptr)
-		{
-		}
-
-		basic_string(const _Elem *_Ptr, const allocator_type& _Al)
-			: _BaseClass(_Ptr, _Al)
-		{
-		}
-
-		basic_string(size_type _Count, _Elem _Ch)
-			: _BaseClass(_Count, _Ch)
-		{
-		}
-
-		basic_string(size_type _Count, _Elem _Ch, const allocator_type& _Al)
-			: _BaseClass(_Count, _Ch, _Al)
-		{
-		}
-
-		template<class _Iter,
-			class = typename std::enable_if<std::_Is_iterator<_Iter>::value, void>::type>
-			basic_string(_Iter _First, _Iter _Last, const allocator_type& _Al = allocator_type())
-			: _BaseClass(_First, _Last, _Al)
-		{
-		}
-
-		basic_string(_Myt&& _Right) _NOEXCEPT
-			: _BaseClass(_Right)
-		{
-		}
-
-		basic_string(_Myt&& _Right, const allocator_type& _Al)
-			: _BaseClass(_Right, _Al)
-		{
-		}
-
-		basic_string(_XSTD initializer_list<_Elem> _Ilist,
-			const allocator_type& _Al = allocator_type())
-			: _BaseClass(_Ilist, _Al)
-		{
-		}
-
-	};
-	typedef basic_string<char> string;
-	typedef basic_string<wchar_t> wstring;
+	typedef std::basic_string<char, std::char_traits<char>, STLHeapAlloc<char>> string;
+	typedef std::basic_string<wchar_t, std::char_traits<wchar_t>, STLHeapAlloc<wchar_t>> wstring;
 
 	/************************************************************************/
 	/* basic_stringbuf                                                      */
 	/************************************************************************/
-	template<class _Elem,
-		class _Traits = std::char_traits<_Elem>,
-		class _Alloc = STLHeapAlloc<_Elem> >
-	class basic_stringbuf
-		: public std::basic_stringbuf<_Elem, _Traits, _Alloc>
-	{
-	public:
-		typedef std::basic_stringbuf<_Elem, _Traits, _Alloc> _BaseClass;
-
-	public:
-		explicit basic_stringbuf(std::ios_base::openmode _Mode = std::ios_base::in | std::ios_base::out)
-			: _BaseClass(_Mode)
-		{
-		}
-
-		explicit basic_stringbuf(const _Mystr& _Str,
-			std::ios_base::openmode _Mode = std::ios_base::in | std::ios_base::out)
-			: _BaseClass(_Str, _Mode)
-		{			
-		}
-
-		basic_stringbuf(_Myt&& _Right)
-			: _BaseClass(_Right)
-		{			
-		}
-
-		virtual ~basic_stringbuf() _NOEXCEPT
-		{	// destroy the object
-			
-		}
-
-	};
-	typedef basic_stringbuf<char> stringbuf;
-	typedef basic_stringbuf<wchar_t> wstringbuf;
+	typedef std::basic_stringbuf<char, std::char_traits<char>, STLHeapAlloc<char> > stringbuf;
+	typedef std::basic_stringbuf<wchar_t, std::char_traits<wchar_t>, STLHeapAlloc<wchar_t> > wstringbuf;
 
 	/************************************************************************/
 	/* basic_istringstream                                                  */
 	/************************************************************************/
-	template<class _Elem,
-		class _Traits = std::char_traits<_Elem>,
-		class _Alloc = STLHeapAlloc<_Elem> >
-	class basic_istringstream
-		: public std::basic_istringstream<_Elem, _Traits, _Alloc>
-	{
-	public:
-		typedef std::basic_istringstream<_Elem, _Traits, _Alloc> _BaseClass;
-
-	public:
-		explicit basic_istringstream(std::ios_base::openmode _Mode = std::ios_base::in)
-			: _BaseClass(_Mode)
-		{
-		}
-
-		explicit basic_istringstream(const _Mystr& _Str,
-			std::ios_base::openmode _Mode = std::ios_base::in)
-			: _BaseClass(_Str, _Mode)
-		{
-		}
-
-		basic_istringstream(_Myt&& _Right)
-			: _BaseClass(_Right)
-		{
-		}
-
-		basic_istringstream(const _Myt&) = delete;
-
-		virtual ~basic_istringstream() _NOEXCEPT
-		{	// destroy the object
-		}
-	};
-	typedef basic_istringstream<char> istringstream;
-	typedef basic_istringstream<wchar_t> wistringstream;
+	typedef std::basic_istringstream<char, std::char_traits<char>, STLHeapAlloc<char> > istringstream;
+	typedef std::basic_istringstream<wchar_t, std::char_traits<wchar_t>, STLHeapAlloc<wchar_t> > wistringstream;
 
 	/************************************************************************/
 	/* basic_ostringstream                                                  */
 	/************************************************************************/
-	template<class _Elem,
-		class _Traits = std::char_traits<_Elem>,
-		class _Alloc = STLHeapAlloc<_Elem> >
-	class basic_ostringstream
-		: public std::basic_ostringstream<_Elem, _Traits, _Alloc>
-	{
-	public:
-		typedef std::basic_ostringstream<_Elem, _Traits, _Alloc> _BaseClass;
-
-	public:
-		explicit basic_ostringstream(std::ios_base::openmode _Mode = std::ios_base::out)
-			: _BaseClass(_Mode)
-		{
-		}
-
-		explicit basic_ostringstream(const _Mystr& _Str,
-			ios_base::openmode _Mode = ios_base::out)
-			: _BaseClass(_Str, _Mode)
-		{
-		}
-
-		basic_ostringstream(_Myt&& _Right)
-			: _BaseClass(_Right)
-		{
-		}
-		
-		basic_ostringstream(const _Myt&) = delete;
-
-		virtual ~basic_ostringstream() _NOEXCEPT
-		{	// destroy the object
-		}
-	};
-	typedef basic_ostringstream<char> ostringstream;
-	typedef basic_ostringstream<wchar_t> wostringstream;
+	typedef std::basic_ostringstream<char, std::char_traits<char>, STLHeapAlloc<char> > ostringstream;
+	typedef std::basic_ostringstream<wchar_t, std::char_traits<wchar_t>, STLHeapAlloc<wchar_t> > wostringstream;
 
 	/************************************************************************/
 	/* basic_stringstream                                                   */
 	/************************************************************************/
-	template<class _Elem,
-		class _Traits = std::char_traits<_Elem>,
-		class _Alloc = STLHeapAlloc<_Elem> >
-	class basic_stringstream
-		: public std::basic_stringstream<_Elem, _Traits, _Alloc>
-	{
-	public:
-		typedef std::basic_stringstream<_Elem, _Traits, _Alloc> _BaseClass;
-
-	public:
-		explicit basic_stringstream(std::ios_base::openmode _Mode =
-			std::ios_base::in | std::ios_base::out)
-			: _BaseClass(_Mode)
-		{
-		}
-
-		explicit basic_stringstream(const _Mystr& _Str,
-			std::ios_base::openmode _Mode = std::ios_base::in | std::ios_base::out)
-			: _BaseClass(_Str, _Mode)
-		{
-		}
-
-		basic_stringstream(_Myt&& _Right)
-			: _BaseClass(_Right)
-		{
-		}
-
-		basic_stringstream(const _Myt&) = delete;
-
-		virtual ~basic_stringstream() _NOEXCEPT
-		{	// destroy the object
-		}
-
-	};
-	typedef basic_stringstream<char> stringstream;
-	typedef basic_stringstream<wchar_t> wstringstream;
+	typedef std::basic_stringstream<char, std::char_traits<char>, STLHeapAlloc<char> > stringstream;
+	typedef std::basic_stringstream<wchar_t, std::char_traits<wchar_t>, STLHeapAlloc<wchar_t> > wstringstream;
 
 	/************************************************************************/
 	/* vector                                                               */
@@ -285,12 +55,6 @@ namespace GL
 		typedef std::vector<_Ty, _Alloc> _BaseClass;
 
 	public:
-		~vector()
-		{
-			//_BaseClass::~vector();
-			_Tidy();
-		}
-
 		vector() _NOEXCEPT
 			: _BaseClass()
 		{	// construct empty vector
@@ -371,12 +135,6 @@ namespace GL
 		typedef std::deque<_Ty, _Alloc> _BaseClass;
 
 	public:
-		~deque() _NOEXCEPT
-		{
-			//_BaseClass::~deque();
-			_Tidy();
-		}
-
 		deque()
 		{
 		}
@@ -455,12 +213,6 @@ namespace GL
 		typedef std::list<_Ty, _Alloc> _BaseClass;
 
 	public:
-		~list() _NOEXCEPT
-		{
-			//_BaseClass::~list();
-			_Tidy();
-		}
-
 		list()
 		{
 		}

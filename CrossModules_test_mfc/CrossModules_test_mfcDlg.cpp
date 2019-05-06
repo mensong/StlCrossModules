@@ -149,7 +149,7 @@ void CCrossModules_test_mfcDlg::OnBnClickedButton2()
 #if 0
 	std::vector<int> vct;
 	fnCrossModules_test_stdvector(vct);
-#elif 0
+#elif 1
 	std::string s = fnCrossModules_test_stdstring();
 #elif 0
 	std::set<std::wstring> st;
