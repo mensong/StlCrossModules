@@ -1,15 +1,30 @@
 #pragma once
+
+#if (__cplusplus > 199711L) || \
+	(defined(_MSC_VER) && _MSC_VER >= 1600) || \
+	(defined(__GNUC__) && (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__ >= 40603) )
+#define CPP11
+#endif
+
 #include "StlHeapAlloc.h"
 #include <string>
 #include <vector>
 #include <deque>
 #include <list>
-#include <forward_list>
 #include <set>
 #include <map>
+#include <sstream>
+
+#ifdef CPP11
+#include <forward_list>
 #include <unordered_set>
 #include <unordered_map>
-#include <sstream>
+#endif
+
+
+#ifndef _NOEXCEPT
+#define _NOEXCEPT
+#endif
 
 namespace GL
 {
@@ -80,47 +95,27 @@ namespace GL
 		{
 		}
 
-		vector(const _Myt& _Right)
+		vector(const vector& _Right)
 			: _BaseClass(_Right)
 		{
 		}
 
-		vector(const _Myt& _Right, const allocator_type& _Al)
+		vector(const vector& _Right, const allocator_type& _Al)
 			: _BaseClass(_Right, _Al)
 		{
 		}
 
-		template<class _Iter,
-			class = typename std::enable_if<std::_Is_iterator<_Iter>::value, void>::type>
-			vector(_Iter _First, _Iter _Last)
+		template<class _Iter>
+		vector(_Iter _First, _Iter _Last)
 			: _BaseClass(_First, _Last)
 		{
 		}
 
-		template<class _Iter,
-			class = typename std::enable_if<std::_Is_iterator<_Iter>::value, void>::type>
-			vector(_Iter _First, _Iter _Last, const allocator_type& _Al)
+		template<class _Iter>
+		vector(_Iter _First, _Iter _Last, const allocator_type& _Al)
 			: _BaseClass(_First, _Last, _Al)
 		{
 		}
-
-		vector(_Myt&& _Right) _NOEXCEPT
-			: _BaseClass(_Right)
-		{
-		}
-
-		vector(_Myt&& _Right, const allocator_type& _Al)
-			: _BaseClass(_Right, _Al)
-		{
-		}
-
-
-		vector(_XSTD initializer_list<value_type> _Ilist,
-			const allocator_type& _Al = allocator_type())
-			: _BaseClass(_Ilist, _Al)
-		{
-		}
-
 	};
 
 	/************************************************************************/
@@ -159,46 +154,27 @@ namespace GL
 		{
 		}
 
-		deque(const _Myt& _Right)
+		deque(const deque& _Right)
 			: _BaseClass(_Right)
 		{
 		}
 
-		deque(const _Myt& _Right, const _Alloc& _Al)
+		deque(const deque& _Right, const _Alloc& _Al)
 			: _BaseClass(_Right, _Al)
 		{
 		}
 
-		template<class _Iter,
-			class = typename std::enable_if<std::_Is_iterator<_Iter>::value, void>::type>
+		template<class _Iter>
 			deque(_Iter _First, _Iter _Last)
 			: _BaseClass(_First, _Last)
 		{
 		}
 
-		template<class _Iter,
-			class = typename std::enable_if<std::_Is_iterator<_Iter>::value, void>::type>
+		template<class _Iter>
 			deque(_Iter _First, _Iter _Last, const _Alloc& _Al)
 			: _BaseClass(_First, _Last, _Al)
 		{
-		}
-
-		deque(_Myt&& _Right)
-			: _BaseClass(_Right)
-		{
-		}
-
-		deque(_Myt&& _Right, const _Alloc& _Al)
-			: _BaseClass(_Right, _Al)
-		{
-		}
-
-		deque(_XSTD initializer_list<value_type> _Ilist,
-			const _Alloc& _Al = allocator_type())
-			: _BaseClass(_Ilist, _Al)
-		{
-		}
-				
+		}			
 	};
 
 	/************************************************************************/
@@ -237,47 +213,30 @@ namespace GL
 		{
 		}
 
-		list(const _Myt& _Right)
+		list(const list& _Right)
 			: _BaseClass(_Right)
 		{
 		}
 
-		list(const _Myt& _Right, const _Alloc& _Al)
+		list(const list& _Right, const _Alloc& _Al)
 			: _BaseClass(_Right, _Al)
 		{
 		}
 
-		template<class _Iter,
-			class = typename std::enable_if<std::_Is_iterator<_Iter>::value, void>::type>
+		template<class _Iter>
 			list(_Iter _First, _Iter _Last)
 			: _BaseClass(_First, _Last)
 		{
 		}
 
-		template<class _Iter,
-			class = typename std::enable_if<std::_Is_iterator<_Iter>::value, void>::type>
+		template<class _Iter>
 			list(_Iter _First, _Iter _Last, const _Alloc& _Al)
 			: _BaseClass(_First, _Last, _Al)
 		{
 		}
-
-		list(_Myt&& _Right)
-			: _BaseClass(_Right)
-		{
-		}
-
-		list(_Myt&& _Right, const _Alloc& _Al)
-			: _BaseClass(_Right, _Al)
-		{
-		}
-
-		list(_XSTD initializer_list<_Ty> _Ilist,
-			const _Alloc& _Al = allocator_type())
-			: _BaseClass(_Ilist, _Al)
-		{
-		}		
 	};
 
+#ifdef CPP11
 	/************************************************************************/
 	/* forward_list                                                         */
 	/************************************************************************/
@@ -320,47 +279,39 @@ namespace GL
 		{
 		}
 
-		forward_list(const _Myt& _Right)
+		forward_list(const forward_list& _Right)
 			: _BaseClass(_Right)
 		{
 		}
 
-		forward_list(const _Myt& _Right, const _Alloc& _Al)
+		forward_list(const forward_list& _Right, const _Alloc& _Al)
 			: _BaseClass(_Right, _Al)
 		{
 		}
 
-		template<class _Iter,
-			class = typename std::enable_if<std::_Is_iterator<_Iter>::value, void>::type>
+		template<class _Iter>
 			forward_list(_Iter _First, _Iter _Last)
 			: _BaseClass(_First, _Last)
 		{
 		}
 
-		template<class _Iter,
-			class = typename std::enable_if<std::_Is_iterator<_Iter>::value,
-			void>::type>
+		template<class _Iter>
 			forward_list(_Iter _First, _Iter _Last, const _Alloc& _Al)
 			: _BaseClass(_First, _Last, _Al)
 		{
 		}
 
-		forward_list(_Myt&& _Right)
+		forward_list(forward_list&& _Right)
 			: _BaseClass(_Right)
 		{
 		}
 
-		forward_list(_Myt&& _Right, const _Alloc& _Al)
+		forward_list(forward_list&& _Right, const _Alloc& _Al)
 			: _BaseClass(_Right, _Al)
 		{
 		}
-
-		forward_list(_XSTD initializer_list<_Ty> _Ilist,
-			const _Alloc& _Al = allocator_type())
-			: _BaseClass(_Ilist, _Al)
-		{
-		}
 	};
+#endif
 
 	/************************************************************************/
 	/* set                                                                  */
@@ -384,12 +335,12 @@ namespace GL
 		{
 		}
 
-		set(const _Myt& _Right)
+		set(const set& _Right)
 			: _BaseClass(_Right)
 		{
 		}
 
-		set(const _Myt& _Right, const allocator_type& _Al)
+		set(const set& _Right, const allocator_type& _Al)
 			: _BaseClass(_Right, _Al)
 		{
 		}
@@ -423,33 +374,6 @@ namespace GL
 			: _BaseClass(_First, _Last, _Pred, _Al)
 		{
 		}
-
-		set(_Myt&& _Right)
-			: _BaseClass(_Right)
-		{
-		}
-
-		set(_Myt&& _Right, const allocator_type& _Al)
-			: _BaseClass(_Right, _Al)
-		{
-		}
-
-		set(_XSTD initializer_list<value_type> _Ilist)
-			: _BaseClass(_Ilist)
-		{
-		}
-
-		set(_XSTD initializer_list<value_type> _Ilist,
-			const key_compare& _Pred)
-			: _BaseClass(_Ilist, _Pred)
-		{
-		}
-
-		set(_XSTD initializer_list<value_type> _Ilist,
-			const key_compare& _Pred, const allocator_type& _Al)
-			: _BaseClass(_Ilist, _Pred, _Al)
-		{
-		}
 	};
 
 	/************************************************************************/
@@ -474,12 +398,12 @@ namespace GL
 		{
 		}
 
-		multiset(const _Myt& _Right)
+		multiset(const multiset& _Right)
 			: _BaseClass(_Right)
 		{
 		}
 
-		multiset(const _Myt& _Right, const allocator_type& _Al)
+		multiset(const multiset& _Right, const allocator_type& _Al)
 			: _BaseClass(_Right, _Al)
 		{
 		}
@@ -513,34 +437,6 @@ namespace GL
 			: _BaseClass(_First, _Last, _Pred, _Al)
 		{
 		}
-
-		multiset(_Myt&& _Right)
-			: _BaseClass(_Right)
-		{
-		}
-
-		multiset(_Myt&& _Right, const allocator_type& _Al)
-			: _BaseClass(_Right, _Al)
-		{
-		}
-
-		multiset(_XSTD initializer_list<value_type> _Ilist)
-			: _BaseClass(_Ilist)
-		{
-		}
-
-		multiset(_XSTD initializer_list<value_type> _Ilist,
-			const key_compare& _Pred)
-			: _BaseClass(_Ilist, _Pred)
-		{
-		}
-
-		multiset(_XSTD initializer_list<value_type> _Ilist,
-			const key_compare& _Pred, const allocator_type& _Al)
-			: _BaseClass(_Ilist, _Pred, _Al)
-		{
-		}
-
 	};
 
 	/************************************************************************/
@@ -566,12 +462,12 @@ namespace GL
 		{
 		}
 
-		map(const _Myt& _Right)
+		map(const map& _Right)
 			: _BaseClass(_Right)
 		{
 		}
 
-		map(const _Myt& _Right, const allocator_type& _Al)
+		map(const map& _Right, const allocator_type& _Al)
 			: _BaseClass(_Right, _Al)
 		{
 		}
@@ -605,33 +501,6 @@ namespace GL
 			: _BaseClass(_First, _Last, _Pred, _Al)
 		{
 		}
-
-		map(_Myt&& _Right)
-			: _BaseClass(_Right)
-		{
-		}
-
-		map(_Myt&& _Right, const allocator_type& _Al)
-			: _BaseClass(_Right, _Al)
-		{
-		}
-
-		map(_XSTD initializer_list<value_type> _Ilist)
-			: _BaseClass(_Ilist)
-		{
-		}
-
-		map(_XSTD initializer_list<value_type> _Ilist,
-			const key_compare& _Pred)
-			: _BaseClass(_Ilist, _Pred)
-		{
-		}
-
-		map(_XSTD initializer_list<value_type> _Ilist,
-			const key_compare& _Pred, const allocator_type& _Al)
-			: _BaseClass(_Ilist, _Pred, _Al)
-		{
-		}
 	};
 
 	/************************************************************************/
@@ -657,12 +526,12 @@ namespace GL
 		{
 		}
 
-		multimap(const _Myt& _Right)
+		multimap(const multimap& _Right)
 			: _BaseClass(_Right)
 		{
 		}
 
-		multimap(const _Myt& _Right, const allocator_type& _Al)
+		multimap(const multimap& _Right, const allocator_type& _Al)
 			: _BaseClass(_Right, _Al)
 		{
 		}
@@ -696,35 +565,9 @@ namespace GL
 			: _BaseClass(_First, _Last, _Pred, _Al)
 		{
 		}
-
-		multimap(_Myt&& _Right)
-			: _BaseClass(_Right)
-		{
-		}
-
-		multimap(_Myt&& _Right, const allocator_type& _Al)
-			: _BaseClass(_Right, _Al)
-		{
-		}
-
-		multimap(_XSTD initializer_list<value_type> _Ilist)
-			: _BaseClass(_Ilist)
-		{
-		}
-
-		multimap(_XSTD initializer_list<value_type> _Ilist,
-			const key_compare& _Pred)
-			: _BaseClass(_Ilist, _Pred)
-		{
-		}
-
-		multimap(_XSTD initializer_list<value_type> _Ilist,
-			const key_compare& _Pred, const allocator_type& _Al)
-			: _BaseClass(_Ilist, _Pred, _Al)
-		{
-		}
 	};
 
+#ifdef CPP11
 	/************************************************************************/
 	/* unordered_set                                                        */
 	/************************************************************************/
@@ -748,12 +591,12 @@ namespace GL
 		{
 		}
 
-		unordered_set(const _Myt& _Right)
+		unordered_set(const unordered_set& _Right)
 			: _BaseClass(_Right)
 		{
 		}
 
-		unordered_set(const _Myt& _Right, const allocator_type& _Al)
+		unordered_set(const unordered_set& _Right, const allocator_type& _Al)
 			: _BaseClass(_Right, _Al)
 		{
 		}
@@ -816,44 +659,13 @@ namespace GL
 		{
 		}
 
-		unordered_set(_Myt&& _Right)
+		unordered_set(unordered_set&& _Right)
 			: _BaseClass(_Right)
 		{
 		}
 
-		unordered_set(_Myt&& _Right, const allocator_type& _Al)
+		unordered_set(unordered_set&& _Right, const allocator_type& _Al)
 			: _BaseClass(_Right, _Al)
-		{
-		}
-
-		unordered_set(_XSTD initializer_list<value_type> _Ilist)
-			: _BaseClass(_Ilist)
-		{
-		}
-
-		unordered_set(_XSTD initializer_list<value_type> _Ilist,
-			size_type _Buckets)
-			: _BaseClass(_Ilist, _Buckets)
-		{
-		}
-
-		unordered_set(_XSTD initializer_list<value_type> _Ilist,
-			size_type _Buckets, const hasher& _Hasharg)
-			: _BaseClass(_Ilist, _Buckets, _Hasharg)
-		{
-		}
-
-		unordered_set(_XSTD initializer_list<value_type> _Ilist,
-			size_type _Buckets, const hasher& _Hasharg,
-			const _Keyeq& _Keyeqarg)
-			: _BaseClass(_Ilist, _Buckets, _Hasharg, _Keyeqarg)
-		{
-		}
-
-		unordered_set(_XSTD initializer_list<value_type> _Ilist,
-			size_type _Buckets, const hasher& _Hasharg,
-			const _Keyeq& _Keyeqarg, const allocator_type& _Al)
-			: _BaseClass(_Ilist, _Buckets, _Hasharg, _Keyeqarg, _Al)
 		{
 		}
 	};
@@ -881,12 +693,12 @@ namespace GL
 		{
 		}
 
-		unordered_multiset(const _Myt& _Right)
+		unordered_multiset(const unordered_multiset& _Right)
 			: _BaseClass(_Right)
 		{
 		}
 
-		unordered_multiset(const _Myt& _Right, const allocator_type& _Al)
+		unordered_multiset(const unordered_multiset& _Right, const allocator_type& _Al)
 			: _BaseClass(_Right, _Al)
 		{
 		}
@@ -949,44 +761,13 @@ namespace GL
 		{
 		}
 
-		unordered_multiset(_Myt&& _Right)
+		unordered_multiset(unordered_multiset&& _Right)
 			: _BaseClass(_Right)
 		{
 		}
 
-		unordered_multiset(_Myt&& _Right, const allocator_type& _Al)
+		unordered_multiset(unordered_multiset&& _Right, const allocator_type& _Al)
 			: _BaseClass(_Right, _Al)
-		{
-		}
-
-		unordered_multiset(_XSTD initializer_list<value_type> _Ilist)
-			: _BaseClass(_Ilist)
-		{
-		}
-
-		unordered_multiset(_XSTD initializer_list<value_type> _Ilist,
-			size_type _Buckets)
-			: _BaseClass(_Ilist, _Buckets)
-		{
-		}
-
-		unordered_multiset(_XSTD initializer_list<value_type> _Ilist,
-			size_type _Buckets, const hasher& _Hasharg)
-			: _BaseClass(_Ilist, _Buckets, _Hasharg)
-		{
-		}
-
-		unordered_multiset(_XSTD initializer_list<value_type> _Ilist,
-			size_type _Buckets, const hasher& _Hasharg,
-			const _Keyeq& _Keyeqarg)
-			: _BaseClass(_Ilist, _Buckets, _Hasharg, _Keyeqarg)
-		{
-		}
-
-		unordered_multiset(_XSTD initializer_list<value_type> _Ilist,
-			size_type _Buckets, const hasher& _Hasharg,
-			const _Keyeq& _Keyeqarg, const allocator_type& _Al)
-			: _BaseClass(_Ilist, _Buckets, _Hasharg, _Keyeqarg, _Al)
 		{
 		}
 	};
@@ -1015,12 +796,12 @@ namespace GL
 		{
 		}
 
-		unordered_map(const _Myt& _Right)
+		unordered_map(const unordered_map& _Right)
 			: _BaseClass(_Right)
 		{
 		}
 
-		unordered_map(const _Myt& _Right, const allocator_type& _Al)
+		unordered_map(const unordered_map& _Right, const allocator_type& _Al)
 			: _BaseClass(_Right, _Al)
 		{
 		}
@@ -1083,47 +864,15 @@ namespace GL
 		{
 		}
 
-		unordered_map(_Myt&& _Right)
+		unordered_map(unordered_map&& _Right)
 			: _BaseClass(_Right)
 		{
 		}
 
-		unordered_map(_Myt&& _Right, const allocator_type& _Al)
+		unordered_map(unordered_map&& _Right, const allocator_type& _Al)
 			: _BaseClass(_Right, _Al)
 		{
 		}
-
-		unordered_map(_XSTD initializer_list<value_type> _Ilist)
-			: _BaseClass(_Ilist)
-		{
-		}
-
-		unordered_map(_XSTD initializer_list<value_type> _Ilist,
-			size_type _Buckets)
-			: _BaseClass(_Ilist, _Buckets)
-		{
-		}
-
-		unordered_map(_XSTD initializer_list<value_type> _Ilist,
-			size_type _Buckets, const hasher& _Hasharg)
-			: _BaseClass(_Ilist, _Buckets, _Hasharg)
-		{
-		}
-
-		unordered_map(_XSTD initializer_list<value_type> _Ilist,
-			size_type _Buckets, const hasher& _Hasharg,
-			const _Keyeq& _Keyeqarg)
-			: _BaseClass(_Ilist, _Buckets, _Hasharg, _Keyeqarg)
-		{
-		}
-
-		unordered_map(_XSTD initializer_list<value_type> _Ilist,
-			size_type _Buckets, const hasher& _Hasharg,
-			const _Keyeq& _Keyeqarg, const allocator_type& _Al)
-			: _BaseClass(_Ilist, _Buckets, _Hasharg, _Keyeqarg, _Al)
-		{
-		}
-
 	};
 
 	/************************************************************************/
@@ -1150,12 +899,12 @@ namespace GL
 		{
 		}
 
-		unordered_multimap(const _Myt& _Right)
+		unordered_multimap(const unordered_multimap& _Right)
 			: _BaseClass(_Right)
 		{
 		}
 
-		unordered_multimap(const _Myt& _Right, const allocator_type& _Al)
+		unordered_multimap(const unordered_multimap& _Right, const allocator_type& _Al)
 			: _BaseClass(_Right, _Al)
 		{
 		}
@@ -1218,46 +967,15 @@ namespace GL
 		{
 		}
 
-		unordered_multimap(_Myt&& _Right)
+		unordered_multimap(unordered_multimap&& _Right)
 			: _BaseClass(_Right)
 		{
 		}
 
-		unordered_multimap(_Myt&& _Right, const allocator_type& _Al)
+		unordered_multimap(unordered_multimap&& _Right, const allocator_type& _Al)
 			: _BaseClass(_Right, _Al)
 		{
 		}
-
-		unordered_multimap(_XSTD initializer_list<value_type> _Ilist)
-			: _BaseClass(_Ilist)
-		{
-		}
-
-		unordered_multimap(_XSTD initializer_list<value_type> _Ilist,
-			size_type _Buckets)
-			: _BaseClass(_Ilist, _Buckets)
-		{
-		}
-
-		unordered_multimap(_XSTD initializer_list<value_type> _Ilist,
-			size_type _Buckets, const hasher& _Hasharg)
-			: _BaseClass(_Ilist, _Buckets, _Hasharg)
-		{
-		}
-
-		unordered_multimap(_XSTD initializer_list<value_type> _Ilist,
-			size_type _Buckets, const hasher& _Hasharg,
-			const _Keyeq& _Keyeqarg)
-			: _BaseClass(_Ilist, _Buckets, _Hasharg, _Keyeqarg)
-		{
-		}
-
-		unordered_multimap(_XSTD initializer_list<value_type> _Ilist,
-			size_type _Buckets, const hasher& _Hasharg,
-			const _Keyeq& _Keyeqarg, const allocator_type& _Al)
-			: _BaseClass(_Ilist, _Buckets, _Hasharg, _Keyeqarg, _Al)
-		{
-		}
-
 	};
+#endif
 }
