@@ -3,8 +3,6 @@
 
 
 # 使用：
-需要c++14的支持
-
 std::string   => GL::string
 
 std::wstring   => GL::wstring
